@@ -1,41 +1,29 @@
-import random
-import time
 
-print("CHOOSE A NUMBER BETWEEN 1 AND 100")
-time.sleep(3)
+def BinarySearch(arr: list, SearchValue: int):
 
-min = 1
-max = 100
-attempts = 1
-def game(min, max, attempts):
-    while(1 <= 10):
-        randInt = random.randrange(min, max, 1)
-        print("*************************************")
-        print("IS YOUR NUMBER " + str(randInt) + "?")
-        print("*************************************")
-        status = int(input("YES THIS IS MY NUMBER! -- 0 \nNope my number is smaller -- 1 \nNah my number is larger -- 2 \n"))
-        while(status >= 0 and status <=2):
-            if (status == 0):
-                break
-            elif (status == 1):
-                max = randInt
-                break
-            elif (status == 2):
-                min = randInt
-                break
-        attempts = attempts + 1 
-        if (status < 0 or status > 2):
-            print("Invalid Input. Try again.")
-        if status == 0: 
-            print("WoW it took " + str(attempts - 1) + " to find your number") 
-            break
-            
-   
+    start = 0
+    end = len(arr) - 1
+
+    found = False
+    searchFailed = False
+
+    while not found and not searchFailed:
+
+        middle = (start + end)//2  
+
+        if start >= end: searchFailed = True
+
+        if arr[middle] == SearchValue: found = True
+        elif arr[middle] > SearchValue: end = middle - 1
+        else: start = middle + 1
+
         
+    if found: print(middle)
+    else: print("Not found in array")
 
-game(min, max, attempts)
 
+#Change Array To Input Array
+arr = [1, 2, 19, 29, 40, 50, 62, 78, 81, 99, 120]  
 
-again = input("Do you wanna play again? (y/n): ")
-if (again == 'y' or again == 'Y'):
-    game(min, max, attempts)
+#Change SearchValue to the value to search
+BinarySearch(arr, SearchValue=34)
